@@ -1,6 +1,15 @@
 const express = require("express");
 const app = express();
 const { logger } = require("./utils");
+const path = require("path");
+
+//static file
+
+app.use(express.static("public"));
+
+//json
+
+app.use(express.json());
 
 const p = {
   firstName: "Tom",
@@ -9,8 +18,7 @@ const p = {
 };
 
 app.get("/", (req, res) => {
-  logger(req);
-  res.json("Hello");
+  res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
 app.get("/products", (req, res) => {
@@ -23,7 +31,7 @@ app.get("/products", (req, res) => {
 
 app.post("/posts", (req, res) => {
   logger(req);
-  res.json("create post");
+  res.status(400).json({ message: "password is required" });
 });
 
 //delete post
