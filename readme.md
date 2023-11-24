@@ -1,13 +1,9 @@
-<!-- Khởi tạo project bằng nodejs
+Lesson2 express
 
-- npm init or npm init -y
-- cấu hình script để run project -->
+b1 npm init -y : khỏi tạo project nodejs
+b2 npm install express : install framework nodejs
 
-Tạo web server đơn giản với cổng 8000
+//params va query
 
-/products
-
-- GET -> "GET PRODUCT"
-- POST -> "CREATE PRODUCT"
-- PUT -> "PUT METHOD PRODUCT"
-- DELETE -> "DELETE PRODUCT"
+- params thường được dùng get detail,...
+- query thường được dùng để filter,pagination

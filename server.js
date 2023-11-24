@@ -1,46 +1,22 @@
 const express = require("express");
 const app = express();
-const { logger } = require("./utils");
-const path = require("path");
+const PORT = 9999;
+const productRoutes = require("./routes/product-routes");
 
-//static file
-
-app.use(express.static("public"));
-
-//json
-
+//serve json
 app.use(express.json());
 
-const p = {
-  firstName: "Tom",
-  lastName: "Halland",
-  address: "Hn",
-};
+//routes
 
+//route-home
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "index.html"));
+  res.status(400).send("lastName and firstName are required");
 });
 
-app.get("/products", (req, res) => {
-  logger(req);
+//route-product
+//prefix
+app.use("/products", productRoutes);
 
-  res.json(p);
-});
-
-//create post
-
-app.post("/posts", (req, res) => {
-  logger(req);
-  res.status(400).json({ message: "password is required" });
-});
-
-//delete post
-
-app.delete("/post", (req, res) => {
-  logger(req);
-  res.json("delete post");
-});
-
-app.listen(5173, () => {
-  console.log("server start in port 5173");
+app.listen(PORT, () => {
+  console.log(`Server running up in port :${PORT}`);
 });
