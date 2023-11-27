@@ -1,10 +1,10 @@
 function checkAuthMiddleware(req, res, next) {
-  const { isLoggin } = req.query;
+  const query = req.query;
 
-  if (!isLoggin) {
-    res.status(401).json({ message: "You must be login first!" });
-  } else {
+  if (query.isLoggin) {
     next();
+  } else {
+    res.status(401).json("Must be loggin");
   }
 }
 

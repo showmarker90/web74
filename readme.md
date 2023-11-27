@@ -1,17 +1,12 @@
-Lesson2 express
+LESSON3 : middleware
 
-b1 npm init -y : khỏi tạo project nodejs
-b2 npm install express : install framework nodejs
+- ở giữa request or response
+- thay đổi các giá trị của request và response
+- kết thúc circle request-response
 
-//params va query
+- GET post -> k yc authentication
+- Create post -> yc authentication
+- Update post -> yc authentication
+- Delete post -> yc authentication
 
-- params thường được dùng get detail,...
-- query thường được dùng để filter,pagination
-
-//post
-
-GET /posts -> "GET POST"
-GET /posts/:id -> "GET POST DETAIL"
-POST /posts -> "CREATE POST"
-PUT /posts/:id -> "UPDATE POST"
-DELETE /posts/:id -> "DELETE POST"
+Check qua query
