@@ -13,11 +13,27 @@ const products = [
     price: 500,
     createdAt: "2023",
   },
+  {
+    id: 3,
+    name: "Bike",
+    price: 1000,
+    createdAt: "2009",
+  },
+  {
+    id: 4,
+    name: "Laptop",
+    price: 500,
+    createdAt: "2023",
+  },
 ];
-
 function getProducts(req, res) {
-  console.log(req.query);
-  res.json(products);
+  const startIndex = +req.query.page;
+  const lastIndex = +req.query.take;
+
+  console.log(startIndex, lastIndex);
+  const results = products.slice(startIndex - 1, lastIndex);
+  throw new Error();
+  res.json(results);
 }
 
 function createProducts(req, res) {

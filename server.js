@@ -1,21 +1,21 @@
 const express = require("express");
 const app = express();
 const PORT = 9999;
+const fs = require("fs");
+const logger = require("./middlewares/logger");
 const productRoutes = require("./routes/product-routes");
+const userRoutes = require("./routes/user-routes");
 
 //serve json
 app.use(express.json());
 
-//routes
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
-//route-home
-app.get("/", (req, res) => {
-  res.status(400).send("lastName and firstName are required");
+app.use((err, req, res, next) => {
+  // console.error(err.stack);
+  res.status(500).send(err.message || "Something broke!");
 });
-
-//route-product
-//prefix
-app.use("/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running up in port :${PORT}`);
