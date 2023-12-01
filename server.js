@@ -6,9 +6,50 @@ const logger = require("./middlewares/logger");
 const productRoutes = require("./routes/product-routes");
 const userRoutes = require("./routes/user-routes");
 const postRoutes = require("./routes/post-route");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const sessionCookieMiddleware = require("./middlewares/sessionCookie-middleware");
+const jwt = require("jsonwebtoken");
+const verifyJwtMiddleware = require("./middlewares/verifyJWT-middleware");
 
-//serve json
+require("dotenv").config();
+
+//middleware for json
+
 app.use(express.json());
+
+const user = {
+  firstName: "Elon",
+  lastName: "Musk",
+  address: "VN",
+};
+
+// route -> api/auth/login -> username,password
+app.post("/api/auth/login", (req, res) => {
+  const { username, password } = req.body;
+
+  //in correct
+  if (username !== process.env.USERNAME || password !== process.env.PASSWORD) {
+    return res.json("username and password are not correct");
+  }
+
+  const infoUser = {
+    username: process.env.USERNAME,
+    role: "user",
+  };
+
+  //create token and send to client
+  const token = jwt.sign(infoUser, process.env.SECRET_KEY_TOKEN);
+
+  res.json(token);
+});
+
+//verify jwt
+app.use(verifyJwtMiddleware);
+
+app.get("/api/me", (req, res) => {
+  res.json(user);
+});
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);

@@ -4,9 +4,6 @@ const {
   createProducts,
 } = require("../controllers/product-controllers");
 const logger = require("../middlewares/logger");
-const checkAuthMiddleware = require("../middlewares/checkAuth-middleware");
-const defaultPageMiddleware = require("../middlewares/defaultPage-middleware");
-const customCheckAuthMiddleware = require("../middlewares/custom-auth-middleware");
 const router = express.Router();
 const products = [
   {
@@ -39,13 +36,9 @@ const products = [
 //page 1 -> 1 -> 2
 //page 2 -> 2 -> 3
 
-router.get("/", customCheckAuthMiddleware(false), getProducts);
-
 router.get("/:productID", (req, res) => {
   res.json(`get detail product ${req.params.productID}`);
 });
-
-router.post("/", customCheckAuthMiddleware(true), createProducts);
 
 // router.put("/:productID", (req, res) => {
 //   res.json("update product");

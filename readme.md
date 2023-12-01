@@ -1,12 +1,16 @@
-LESSON3 : middleware
+LESSON4 : Authentication va Authorization
 
-- ở giữa request or response
-- thay đổi các giá trị của request và response
-- kết thúc circle request-response
+1/ Xác thực người dùng session và cookie -> xác thực
 
-- GET post -> k yc authentication
-- Create post -> yc authentication
-- Update post -> yc authentication
-- Delete post -> yc authentication
+cookie-parser,express-session
 
-Check qua query
+- Nhược điểm :mất session khi restart server
+- nhiều web server ->
+
+2/ JWT -> jsonwebtoken
+3 thành phần các nhau bởi dấu chấm :
+Header,Body,Footer
+
+Sign,Verify
+Sign -> tao token -> send client
+Verify -> xac thuc token
