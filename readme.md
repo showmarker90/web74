@@ -14,3 +14,7 @@ Header,Body,Footer
 Sign,Verify
 Sign -> tao token -> send client
 Verify -> xac thuc token
+
+post -> login -> token
+
+get -> me

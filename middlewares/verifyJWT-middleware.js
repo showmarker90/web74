@@ -1,31 +1,36 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
-function verifyJwtMiddleware(req, res, next) {
+function verifyJWTMiddleware(req, res, next) {
+  //check có token hay ko
   const authorization = req.headers.authorization;
+
   if (!authorization) {
-    return res.status(401).json("Header mustbe provide token");
+    res.status(401).json("Header mustbe provide token");
+    return;
   }
 
+  //check xem có đúng fai user không
   const fields = authorization.split(" ");
 
   if (fields.length !== 2) {
-    return res.status(400).json("Method auth is not support");
+    res.status(400).json("Only bear token is support");
+    return;
   }
-
   const token = fields[1];
 
-  const decoded = jwt.verify(token, process.env.SECRET_KEY_TOKEN);
-  console.log("running1");
+  try {
+    //verify token
+    const decoded = jwt.verify(token, process.env.SECRET_KEY_TOKEN);
 
-  if (decoded.username !== process.env.USERNAME) {
-    console.log(decoded.username);
-    console.log(process.env.USERNANE);
+    if (decoded.username !== process.env.USERNAME) {
+      res.status(403);
+      return;
+    }
 
-    return res.status(403);
+    next();
+  } catch (err) {
+    throw err;
   }
-  console.log("running2");
-  next();
 }
 
-module.exports = verifyJwtMiddleware;
+module.exports = verifyJWTMiddleware;

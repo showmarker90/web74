@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const sessionCookieMiddleware = require("./middlewares/sessionCookie-middleware");
 const jwt = require("jsonwebtoken");
-const verifyJwtMiddleware = require("./middlewares/verifyJWT-middleware");
+const verifyJWTMiddleware = require("./middlewares/verifyJWT-middleware");
 
 require("dotenv").config();
 
@@ -24,7 +24,7 @@ const user = {
   address: "VN",
 };
 
-// route -> api/auth/login -> username,password
+//login -> k bắt nta
 app.post("/api/auth/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -33,20 +33,18 @@ app.post("/api/auth/login", (req, res) => {
     return res.json("username and password are not correct");
   }
 
-  const infoUser = {
+  const payload = {
     username: process.env.USERNAME,
-    role: "user",
   };
 
-  //create token and send to client
-  const token = jwt.sign(infoUser, process.env.SECRET_KEY_TOKEN);
-
-  res.json(token);
+  //create token -> client
+  const token = jwt.sign(payload, process.env.SECRET_KEY_TOKEN);
+  res.send(token);
 });
 
-//verify jwt
-app.use(verifyJwtMiddleware);
-
+//use verifyJWTMiddleware
+app.use(verifyJWTMiddleware);
+//get me api -> nta fai đăng nhập thì ms vào dc route này
 app.get("/api/me", (req, res) => {
   res.json(user);
 });
