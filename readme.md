@@ -14,3 +14,8 @@ password string
 
 - Schema -> phác thảo
 - Schema -> Model -> CRUD
+
+// connect DB local
+// tạo 1 model user vs schema <username,password>
+
+// tạo 2 route : createUser,get User
