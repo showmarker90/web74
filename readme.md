@@ -1,20 +1,16 @@
-LESSON4 : Authentication va Authorization
+LESSON6 : CRUD MONGO VS NODEJS
 
-1/ Xác thực người dùng session và cookie -> xác thực
+Collection, Document,Field
+CRUD : Create,Read,Update,Delete
 
-cookie-parser,express-session
+Mongoose : Model,Schema
 
-- Nhược điểm :mất session khi restart server
-- nhiều web server ->
+User : {
+username string
+age number
+password string
 
-2/ JWT -> jsonwebtoken
-3 thành phần các nhau bởi dấu chấm :
-Header,Body,Footer
+}
 
-Sign,Verify
-Sign -> tao token -> send client
-Verify -> xac thuc token
-
-post -> login -> token
-
-get -> me
+- Schema -> phác thảo
+- Schema -> Model -> CRUD
