@@ -18,4 +18,8 @@ password string
 // connect DB local
 // tạo 1 model user vs schema <username,password>
 
-// tạo 2 route : createUser,get User
+// Create -> username,password
+// FindAll -> get all user
+// FindOne -> id
+// Update -> username
+// Delete -> id
