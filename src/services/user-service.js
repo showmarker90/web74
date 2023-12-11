@@ -1,23 +1,36 @@
 const { User } = require("../models/user-model");
+const { ObjectId } = require("mongodb");
 
-const createUserService = async (username, password, age) => {
-  const newUser = new User({ username, password, age });
+const createUserService = async (username, password) => {
+  const newUser = new User({ username, password });
 
   await newUser.save();
 
   return newUser;
 };
 
-const findAllService = async ({ age }) => {
+const findOneService = async (username) => {
   const filter = {
-    age: {
-      $gt: age || 0,
-    },
+    username,
   };
-  const result = await User.find(filter);
-  const total = await User.countDocuments(filter);
+  const user = await User.findOne(filter).exec();
+
+  return user;
+};
+
+const findAllService = async () => {
+  const result = await User.find();
+  const total = await User.countDocuments();
   return { total, result };
 };
+
+const findOneByID = async (ID) => {
+  const user = await User.findById(ID).projection({ username: 1 }).exec();
+  return user;
+};
+
+const uploadAvatarService = (ID, fileName) =>
+  User.findOneAndUpdate({ _id: new ObjectId(ID) }, { avatar: fileName });
 
 const getTotalAgeService = async () => {
   //match
@@ -46,4 +59,11 @@ const getTotalAgeService = async () => {
   return result;
 };
 
-module.exports = { createUserService, findAllService, getTotalAgeService };
+module.exports = {
+  createUserService,
+  findAllService,
+  getTotalAgeService,
+  findOneService,
+  findOneByID,
+  uploadAvatarService,
+};

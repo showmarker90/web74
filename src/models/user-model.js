@@ -11,10 +11,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  age: {
-    type: Number,
-    required: true,
-  },
+  avatar: String,
 });
 
 // create model

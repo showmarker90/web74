@@ -1,25 +1,11 @@
-LESSON6 : CRUD MONGO VS NODEJS
+LESSON7 : Common practice
 
-Collection, Document,Field
-CRUD : Create,Read,Update,Delete
+- MVC => Model,View,Controller
 
-Mongoose : Model,Schema
+/auth/register
+/auth/login -> compare
 
-User : {
-username string
-age number
-password string
+bcrypt -> hash password
 
-}
-
-- Schema -> phác thảo
-- Schema -> Model -> CRUD
-
-// connect DB local
-// tạo 1 model user vs schema <username,password>
-
-// Create -> username,password
-// FindAll -> get all user
-// FindOne -> id
-// Update -> username
-// Delete -> id
+hash -> tạo ra hashed password
+compare -> so sánh password vs hashed password
