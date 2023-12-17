@@ -25,7 +25,7 @@ const findAllService = async () => {
 };
 
 const findOneByID = async (ID) => {
-  const user = await User.findById(ID).projection({ username: 1 }).exec();
+  const user = await User.findById(ID).exec();
   return user;
 };
 
