@@ -21,6 +21,8 @@ const findOneService = async (username) => {
 const findAllService = async () => {
   const result = await User.find();
   const total = await User.countDocuments();
+
+  console.log("ds");
   return { total, result };
 };
 
