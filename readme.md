@@ -1,11 +1,10 @@
-LESSON7 : Common practice
+LESSON8 :
 
-- MVC => Model,View,Controller
+- Altas :
 
-/auth/register
-/auth/login -> compare
+- tạo account
+- vào : https://cloud.mongodb.com/
+- tạo cluster
 
-bcrypt -> hash password
-
-hash -> tạo ra hashed password
-compare -> so sánh password vs hashed password
+Frontend -> Nextjs
+Backend -> Nestjs
