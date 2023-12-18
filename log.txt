@@ -1,3 +1,0 @@
-GET 		 /api/products 		 Mon Nov 27 2023 19:30:41 GMT+0700 (GMT+07:00)
-GET 		 /api/products 		 Mon Nov 27 2023 19:31:44 GMT+0700 (GMT+07:00)
-GET 		 /api/products 		 Mon Nov 27 2023 19:33:15 GMT+0700 (GMT+07:00)
