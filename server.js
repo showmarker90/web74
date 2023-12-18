@@ -15,6 +15,9 @@ app.use(express.static("public"));
 app.use(express.json());
 
 //route
+app.use("/", (req, res) => {
+  res.json("Hello web74");
+});
 app.use("/api/auth", authRoutes);
 app.use("/user", userRoutes);
 
