@@ -9,6 +9,9 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Footer from "./shared/components/Footer";
 import Layout from "./shared/layout";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -20,9 +23,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
+      <ToastContainer />
     </BrowserRouter>
   );
 };
