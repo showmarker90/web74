@@ -15,7 +15,7 @@ Post
 - updatedAt
 - title
 - content
-- auth : user
+- auth : userID
 - hastag
 
 LESSON10 : AUTHENTICATION
@@ -23,8 +23,16 @@ LESSON10 : AUTHENTICATION
 - Backend
   bcrypt
 
-relationships
+- cách xử lí relationship trong mongoDB
 
-one to one : vợ vs chồng
-one to many : vua vs vợ
-many to many :
+* Embed Documents
+* Reference
+
+- Documents <= 16MB
+
+CRUD -> POSTS
+
+GET ->
+POST ->
+PUT -> jwt -> post exist -> user created post ->
+DELETE ->

@@ -1,7 +1,8 @@
 const { Schema, default: mongoose } = require("mongoose");
+const { userSchema, UserSchema } = require("./user");
 const { newID } = require("../utils/main");
 
-const UserSchema = new Schema({
+const PostSchema = new Schema({
   id: {
     type: String,
     default: newID(),
@@ -17,26 +18,19 @@ const UserSchema = new Schema({
     required: true,
     default: new Date(),
   },
-
-  username: {
+  title: {
     type: String,
     required: true,
   },
-  password: {
+  content: {
     type: String,
     required: true,
   },
-
-  followings: {
-    type: [String],
-  },
-  followers: {
-    type: [String],
-  },
-  avatar: String,
+  hashTag: String,
+  author: UserSchema,
 });
 
 // create model
-const User = mongoose.model("users", UserSchema);
+const Post = mongoose.model("posts", PostSchema);
 
-module.exports = { User, UserSchema };
+module.exports = { Post };

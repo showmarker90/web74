@@ -1,4 +1,5 @@
 const { findOneUser } = require("../services/user-service");
+const { argUser } = require("../utils/constants");
 const { CustomErr } = require("../utils/error");
 const jwt = require("jsonwebtoken");
 const verifyTokenMiddleware = async (req, res, next) => {
@@ -20,11 +21,13 @@ const verifyTokenMiddleware = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.KEY_TOKEN);
 
-    const user = await findOneUser(undefined, decoded.userID);
+    const user = await findOneUser(decoded.username, decoded.userID);
 
     if (!user) {
       throw new CustomErr("Unauthorized", 403);
     }
+
+    req[argUser] = user;
     next();
   } catch (err) {
     next(err);

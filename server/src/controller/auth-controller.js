@@ -15,6 +15,7 @@ const register = async (req, res, next) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
     //check username already
     const existingUser = await findOneUser(username);
+
     if (!!existingUser) {
       throw new CustomErr(`${username} is existing`, 409);
     }
@@ -39,6 +40,7 @@ const login = async (req, res, next) => {
       throw new CustomErr(`${username} is not existing`, 404);
     }
     //compare
+
     const matched = bcrypt.compareSync(password, existingUser.password);
     if (!matched) {
       throw new CustomErr("password is not correct", 400);
