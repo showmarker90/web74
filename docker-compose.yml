@@ -1,0 +1,24 @@
+
+services:
+
+  client :  
+    build : ./client
+    ports :  
+      - 5173:5173
+    environment : 
+      VITE_API_URL : http://localhost:8080/api/
+
+  server :     
+    build : ./server
+    ports :  
+      - 8080:8080
+    environment : 
+      PORT : 8080
+      MONGO_URI : mongodb://db/web74
+      KEY_TOKEN : MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCB7FOLAzRfpx8cECVflCse2nrwOw+J5MA3if0d7XMztIQ/BkPvUuX0Wo68286hrAzTf0Nc4zLQV7+xfaNhknKJ9IML3+NYZVQG3cL43DSip3zow1wFXXpSH5mE3Vhf9+r4IZwnX8dkJCJ46MXzDSV8qkL2oexAzsa8zJFiZ0t+WwIDAQAB
+
+  db :   
+    image : mongo:7.0-rc
+    ports :
+      - 27017:27017
+    

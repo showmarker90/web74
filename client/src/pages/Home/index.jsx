@@ -31,6 +31,8 @@ const Home = () => {
       setData(res.data);
     },
   });
+
+  console.log("data", data);
   return (
     <SHome>
       {data.map((post) => (
