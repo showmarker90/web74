@@ -9,6 +9,8 @@ import { requestWithToken } from "../../../utils/axios-http";
 import { toast } from "react-toastify";
 import { extractMessageFromErr } from "../../../utils/error";
 import { useQueryClient } from "react-query";
+import { useSearchParams } from "react-router-dom";
+import { paramsURLToObject } from "../../../utils/main";
 
 const schema = yup.object().shape({
   title: yup.string().required(),
@@ -17,6 +19,8 @@ const schema = yup.object().shape({
 });
 
 const ModalCreate = ({ close }) => {
+  const [searchParams] = useSearchParams();
+  const pageQuery = paramsURLToObject(searchParams);
   const {
     handleSubmit,
     control,
@@ -33,7 +37,7 @@ const ModalCreate = ({ close }) => {
         data,
       });
 
-      await queryClient.invalidateQueries("list-posts");
+      await queryClient.invalidateQueries(["list-posts", pageQuery]);
       toast.success("create success");
       close();
     } catch (err) {

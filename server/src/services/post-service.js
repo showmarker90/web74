@@ -13,10 +13,16 @@ const createPostService = ({ title, content, hashTag }, author) => {
   post.save();
 };
 
-const getPostService = async () => {
-  const result = await Post.find().select("-author.password");
+const getPostService = async ({ page, take }) => {
+  const result = await Post.find()
+    .skip((+page - 1) * +take)
+    .limit(take)
+    .sort({ createdAt: -1 })
+    .select("-author.password");
   return result;
 };
+
+const getTotal = () => Post.countDocuments();
 
 const findOnePostService = (id) => Post.findOne({ id });
 const updatePostService = async ({ title, content, hashTag, postID }) => {
@@ -42,4 +48,5 @@ module.exports = {
   findOnePostService,
   updatePostService,
   deletePostService,
+  getTotal,
 };

@@ -3,41 +3,55 @@ import { SHome } from "./style";
 import { request } from "../../shared/utils/axios-http";
 import PostItem from "../../shared/components/PostItem";
 import { useQuery } from "react-query";
+import { Pagination } from "antd";
+import { useSearchParams } from "react-router-dom";
+import { paramsURLToObject } from "../../shared/utils/main";
+import { DEFAULT_PAGE } from "../../shared/utils/constants";
 
 const Home = () => {
-  const [data, setData] = useState([]);
-  // const fetchPosts = async () => {
-  //   try {
-  //     const res = await request({
-  //       url: "/post",
-  //       method: "get",
-  //     });
-  //     setData(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, []);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageQuery = paramsURLToObject(searchParams);
+  const { take, page } = pageQuery;
 
-  useQuery({
-    queryKey: ["list-posts"],
+  const { data } = useQuery({
+    queryKey: ["list-posts", pageQuery],
     queryFn: async () => {
       const res = await request({
         url: "/post",
+        params: {
+          page: page || DEFAULT_PAGE.page,
+          take: take || DEFAULT_PAGE.take,
+        },
       });
 
-      setData(res.data);
+      return res.data;
     },
   });
 
-  console.log("data", data);
+  useEffect(() => {
+    setSearchParams(DEFAULT_PAGE);
+  }, []);
+
+  if (!data) return <></>;
+  const docs = data.docs;
+  const meta = data.meta;
+
   return (
     <SHome>
-      {data.map((post) => (
-        <PostItem key={post.postID} post={post} />
-      ))}
+      <div className="post-wrapper">
+        {docs.map((post) => (
+          <PostItem key={post.postID} post={post} />
+        ))}
+      </div>
+
+      <div className="pagination-wrapper">
+        <Pagination
+          total={+meta.total}
+          pageSize={+meta.take}
+          current={+page || DEFAULT_PAGE.page}
+          onChange={(page) => setSearchParams({ ...pageQuery, page })}
+        />
+      </div>
     </SHome>
   );
 };

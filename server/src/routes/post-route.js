@@ -6,10 +6,12 @@ const {
   getDetailController,
 } = require("../controller/post-controller");
 const { verifyTokenMiddleware } = require("../middleware/auth-middleware");
+const { pageMiddleware } = require("../middleware/page-middleware");
 const { verifyPostMiddleware } = require("../middleware/verifyPost-middleware");
 
 const postRoute = require("express").Router();
 
+postRoute.use(pageMiddleware);
 postRoute.get("/", getPostController);
 postRoute.get("/:id", getDetailController);
 //verify token

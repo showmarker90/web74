@@ -4,14 +4,19 @@ const {
   updatePostService,
   deletePostService,
   findOnePostService,
+  getTotal,
 } = require("../services/post-service");
 const { argUser } = require("../utils/constants");
 const { CustomErr } = require("../utils/error");
+const { Pagination } = require("../utils/page");
 
 const getPostController = async (req, res, next) => {
   try {
-    const data = await getPostService();
-    res.json(data);
+    const { page, take } = req.query;
+    const total = await getTotal();
+    const meta = new Pagination(page, take, total);
+    const docs = await getPostService({ page, take });
+    res.json({ docs, meta });
   } catch (err) {
     next(err);
   }
