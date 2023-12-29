@@ -29,13 +29,14 @@ const Home = () => {
   });
 
   useEffect(() => {
-    setSearchParams(DEFAULT_PAGE);
-  }, []);
+    if (!take || !page) {
+      setSearchParams(DEFAULT_PAGE);
+    }
+  }, [take, page]);
 
   if (!data) return <></>;
   const docs = data.docs;
   const meta = data.meta;
-
   return (
     <SHome>
       <div className="post-wrapper">
@@ -44,14 +45,18 @@ const Home = () => {
         ))}
       </div>
 
-      <div className="pagination-wrapper">
-        <Pagination
-          total={+meta.total}
-          pageSize={+meta.take}
-          current={+page || DEFAULT_PAGE.page}
-          onChange={(page) => setSearchParams({ ...pageQuery, page })}
-        />
-      </div>
+      {meta && (
+        <div className="pagination-wrapper">
+          <Pagination
+            total={+meta.total}
+            pageSize={+meta.take}
+            current={+page || DEFAULT_PAGE.page}
+            onChange={(page) => {
+              setSearchParams({ ...pageQuery, page });
+            }}
+          />
+        </div>
+      )}
     </SHome>
   );
 };

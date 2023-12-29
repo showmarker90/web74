@@ -2,6 +2,7 @@ const { DEFAULT_PAGE } = require("../utils/constants");
 
 function pageMiddleware(req, res, next) {
   const { page, take } = req.query;
+
   if (!page) {
     req.query.page = DEFAULT_PAGE.page;
   }
