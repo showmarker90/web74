@@ -4,14 +4,14 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 const PostItem = ({
-  post: { title, content, hashTag, createdAt, author, postID },
+  post: { title, content, hashTag, createdAt, author, postID, image },
 }) => {
   const navigate = useNavigate();
   return (
     <SPostItem onClick={() => navigate(`post/${postID}`)}>
       <img
         className="image-post"
-        src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww"
+        src={import.meta.env.VITE_STATIC_URL + image}
       />
 
       <div className="info">

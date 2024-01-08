@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { SModalCreate } from "./style";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { extractMessageFromErr } from "../../../utils/error";
 import { useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import { paramsURLToObject } from "../../../utils/main";
+import UploadFile from "../../Uploadfile";
 
 const schema = yup.object().shape({
   title: yup.string().required(),
@@ -20,6 +21,10 @@ const schema = yup.object().shape({
 
 const ModalCreate = ({ close }) => {
   const [searchParams] = useSearchParams();
+  const [img, setImg] = useState({
+    file: undefined,
+    image: undefined,
+  });
   const pageQuery = paramsURLToObject(searchParams);
   const {
     handleSubmit,
@@ -31,10 +36,25 @@ const ModalCreate = ({ close }) => {
   const queryClient = useQueryClient();
   const onSubmit = async (data) => {
     try {
+      const formData = new FormData();
+      for (let [key, value] of Object.entries(data)) {
+        formData.append(key, value);
+      }
+      if (!img.file) {
+        return toast.error("image is required");
+      }
+      //add file
+      formData.append("image", img.file);
+      const token = localStorage.getItem("access_token");
+
       await requestWithToken({
         url: "/post",
         method: "post",
-        data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
       });
 
       await queryClient.invalidateQueries(["list-posts", pageQuery]);
@@ -44,8 +64,18 @@ const ModalCreate = ({ close }) => {
       toast.error(extractMessageFromErr(err));
     }
   };
+
+  const handleChangeImage = ({ file, img }) => {
+    setImg({ image: img, file });
+  };
+
+  console.log(img);
   return (
     <SModalCreate>
+      <div className="form-item">
+        <span>Image</span>
+        <UploadFile handleChange={handleChangeImage} image={img.image} />
+      </div>
       <div className="form-item">
         <span>Title</span>
         <Controller
