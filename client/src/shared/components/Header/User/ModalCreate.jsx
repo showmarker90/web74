@@ -50,10 +50,7 @@ const ModalCreate = ({ close }) => {
       await requestWithToken({
         url: "/post",
         method: "post",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
+
         data: formData,
       });
 

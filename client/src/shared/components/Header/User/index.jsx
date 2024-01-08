@@ -4,13 +4,22 @@ import { Button, Modal } from "antd";
 import useAuth from "../../../../hooks/useAuth";
 import ModalCreate from "./ModalCreate";
 import useBoolean from "../../../../hooks/useBoolean";
+import { Link } from "react-router-dom";
 
 const User = () => {
   const { user } = useContext(AppContext);
   const { logOut } = useAuth();
   return (
     <div className="user-info">
-      <p>{user.username}</p>
+      <Link
+        to={`/user/${user.id}`}
+        style={{
+          textDecoration: "none",
+          color: "blue",
+        }}
+      >
+        {user.username}
+      </Link>
       <ButtonCreatePost />
       <Button type="primary" danger onClick={logOut}>
         Logout

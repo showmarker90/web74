@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { extractMessageFromErr } from "../../shared/utils/error";
 import axios from "axios";
 import { requestWithToken } from "../../shared/utils/axios-http";
+import { S } from "./styles";
 
 const Profile = () => {
   const getMe = async () => {
@@ -17,7 +18,11 @@ const Profile = () => {
   useEffect(() => {
     getMe();
   }, []);
-  return <div>Profile</div>;
+  return (
+    <S>
+      <div className="profile-wrapper"></div>
+    </S>
+  );
 };
 
 export default Profile;
