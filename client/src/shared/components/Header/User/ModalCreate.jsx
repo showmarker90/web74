@@ -34,9 +34,11 @@ const ModalCreate = ({ close }) => {
     resolver: yupResolver(schema),
   });
   const queryClient = useQueryClient();
+
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
+
       for (let [key, value] of Object.entries(data)) {
         formData.append(key, value);
       }
@@ -45,7 +47,6 @@ const ModalCreate = ({ close }) => {
       }
       //add file
       formData.append("image", img.file);
-      const token = localStorage.getItem("access_token");
 
       await requestWithToken({
         url: "/post",
